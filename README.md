@@ -21,7 +21,7 @@ This simple example shows how to minimize the following function with `findMinGl
 ```js
 const hyperopt = require('hyperopt');
 
-// Domain: the number of dimensions and their respective
+// Domain: defines the number of dimensions and their respective
 // ranges (minimum, maximum) to evaluate. In this example
 // the objective is one dimensional.
 const domain = [
@@ -48,6 +48,8 @@ console.info(min);
 1. _C. Malherbe, N. Vayatis_ – __Global optimization of Lipschitz functions__ – arXiv:1703.02628, Jun 2017.
 
 2. _M.J.D. Powell_ – __The BOBYQA algorithm for bound constrained optimization without derivatives__ – Report DAMTP 2009/NA06, University of Cambridge, Aug 2009.
+
+<br>
 
 ---
 
