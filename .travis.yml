@@ -3,35 +3,41 @@ sudo: false
 
 env:
   global:
-    - BUILD_TYPE=Debug
-    - CMAKE_URL=https://cmake.org/files/v3.11/cmake-3.11.0-Linux-x86_64.tar.gz
-    - CMAKE_DIRNAME=cmake-3.11.0-Linux-x86_64
     - YARN_URL=https://github.com/yarnpkg/yarn/releases/download/v1.14.0/yarn-v1.14.0.tar.gz
     - YARN_DIRNAME=yarn-v1.14.0
+    - NODE=10.0
 
 dist: trusty
 
 matrix:
   include:
-    # -- core library tests (debug)
+    # -- linux
     - os: linux
-      env: NODE=10.0
+      env:
+        - CMAKE_URL=https://cmake.org/files/v3.11/cmake-3.11.0-Linux-x86_64.tar.gz
+        - CMAKE_DIRNAME=cmake-3.11.0-Linux-x86_64
       addons:
         apt:
           sources: &ubuntu-sources [kubuntu-backports, ubuntu-toolchain-r-test, george-edison55-precise-backports, deadsnakes]
           packages:  &ubuntu-packages [g++-5, ninja-build]
+    - os: osx
 
 install:
   # -- cmake
-  - curl -L $CMAKE_URL | tar xz -C /tmp
-  - export PATH=/tmp/$CMAKE_DIRNAME/bin:$PATH
-  - cmake --version
+  - |
+    if [ -n "$CMAKE_URL" ]; then
+      curl -L $CMAKE_URL | tar xz -C /tmp
+      export PATH=/tmp/$CMAKE_DIRNAME/bin:$PATH
+    fi
   # -- node.js
   - rm -rf ~/.nvm && git clone --depth 1 --branch v0.34.0 https://github.com/creationix/nvm.git ~/.nvm
   - source ~/.nvm/nvm.sh && nvm install $NODE
   # -- yarn
   - curl -L $YARN_URL | tar xz -C /tmp
   - export PATH=/tmp/$YARN_DIRNAME/bin:$PATH
+  # -- version checks
+  - cmake --version
+  - node --version
   - yarn --version
 
 before_script:
