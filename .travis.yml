@@ -15,8 +15,8 @@ matrix:
   include:
     # -- core library tests (debug)
     - os: linux
+      env: NODE=10.0
       addons:
-        env: NODE=10.0
         apt:
           sources: &ubuntu-sources [kubuntu-backports, ubuntu-toolchain-r-test, george-edison55-precise-backports, deadsnakes]
           packages:  &ubuntu-packages [g++-5, ninja-build]
