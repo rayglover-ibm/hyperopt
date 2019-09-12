@@ -2,7 +2,7 @@
   "name": "hyperopt",
   "version": "0.6.0",
   "description": "Global optimization algorithms for node.js",
-  "license": "Apache-2",
+  "license": "Apache-2.0",
   "dependencies": {
     "bindings": "^1.5",
     "cmake-js": "^5.3",
