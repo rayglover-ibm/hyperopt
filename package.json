@@ -1,0 +1,18 @@
+{
+  "name": "hyperopt",
+  "version": "0.6.0",
+  "description": "Global optimization algorithms for node.js",
+  "license": "Apache-2",
+  "dependencies": {
+    "bindings": "^1.5",
+    "cmake-js": "^5.3",
+    "node-addon-api": "^1.7"
+  },
+  "scripts": {
+    "install": "cmake-js compile",
+    "test": "teenytest tests/*.test.js"
+  },
+  "devDependencies": {
+    "teenytest": "^5.2"
+  }
+}
