@@ -1,5 +1,5 @@
 const hyperopt = require('..');
-const { equal, ok } = require('assert').strict;
+const { equal, ok, throws } = require('assert').strict;
 
 function closeTo(x, y, absolute) {
     const within = Math.abs(x - y) <= absolute;
@@ -105,6 +105,19 @@ const tests = {
 
         closeTo(min.y, -0.463, 1e-3);
         closeTo(min.x[0], 2.144, 1e-3);
+    },
+
+    'Handles Bad inputs': () => {
+        // invalid objectives
+        throws(() => hyperopt.findMaxGlobal(null,       [[0, 1]]));
+        throws(() => hyperopt.findMaxGlobal({},         [[0, 1]]));
+        throws(() => hyperopt.findMaxGlobal(_ => [0],   [[0, 1]]));
+        throws(() => hyperopt.findMaxGlobal(_ => false, [[0, 1]]));
+        
+        // invalid domain
+        throws(() => hyperopt.findMaxGlobal(_ => 0, null));
+        throws(() => hyperopt.findMaxGlobal(_ => 0, []));
+        throws(() => hyperopt.findMaxGlobal(_ => 0, [0]));   
     }
 }
 
