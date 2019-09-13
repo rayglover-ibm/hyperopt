@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2017 Ray Glover
- * Licensed under the Apache License, Version 2.0 
+ * Licensed under the Apache License, Version 2.0
  */
 
 const binding = require('bindings')('hyperopt');
@@ -10,10 +10,13 @@ function extractBounds(bounds) {
     const max = new Float64Array(bounds.length);
 
     for (let i = 0; i < bounds.length; i++) {
-        const [iMin, iMax] = bounds[i];
+        const range = bounds[i];
 
-        min[i] = iMin;
-        max[i] = iMax;
+        if (!Array.isArray(range) || range.length < 2)
+            throw new Error('Invalid range at dimension ' + i);
+
+        min[i] = range[0];
+        max[i] = range[1];
     }
 
     return { min, max };
@@ -22,9 +25,12 @@ function extractBounds(bounds) {
 function run(objective, bounds, opts, ymult) {
     if (typeof objective !== 'function')
         throw new Error('The objective must be a function');
-    
+
     if (!Array.isArray(bounds))
         throw new Error('The bounds must be an array');
+
+    if (bounds.length < 1)
+        throw new Error('The bounds must have a length > 0');
 
     const boundsVectors = extractBounds(bounds);
 
@@ -33,7 +39,7 @@ function run(objective, bounds, opts, ymult) {
         maxRuntimeMs: undefined,
         epsilon: 0,
     }, opts);
-    
+
     return binding.find_global(
         objective,
         boundsVectors.min,
