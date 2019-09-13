@@ -30,5 +30,12 @@ before_script:
 script:
   - yarn test
 
+deploy:
+  provider: npm
+  email: ${NPM_EMAIL}
+  api_key: ${NPM_AUTH}
+  on:
+    branch: npm-deploy
+
 notifications:
   email: false
