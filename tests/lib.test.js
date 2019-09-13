@@ -78,7 +78,7 @@ const tests = {
         closeTo(result.y, 0, 1e-16);
     },
 
-    'Find rosen(x, y) global minimum (b = 100) with timeout': () => {
+    'Find rosen(x, y) global minimum (b = 100) within duration': () => {
         const objective = objectives.rosen.bind(null, 100);
         const maxRuntimeMs = 500;
 
