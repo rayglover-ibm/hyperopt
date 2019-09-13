@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2017 Ray Glover
- * Licensed under the Apache License, Version 2.0 
+ * Licensed under the Apache License, Version 2.0
  */
 
 const binding = require('bindings')('hyperopt');
@@ -25,7 +25,7 @@ function extractBounds(bounds) {
 function run(objective, bounds, opts, ymult) {
     if (typeof objective !== 'function')
         throw new Error('The objective must be a function');
-    
+
     if (!Array.isArray(bounds))
         throw new Error('The bounds must be an array');
 
