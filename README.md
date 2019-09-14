@@ -11,6 +11,11 @@ This node.js package simply wraps the routine `dlib::find_max_global()` from the
 npm install hyperopt
 ```
 
+Note this is a Node.js N-API native addon and requires at least:
+- CMake - `v3.11`
+- node.js - `v8.0`
+- A recent c++ compiler
+
 ## Example
 
 This simple example shows how to minimize the following function with `findMinGlobal()`:
