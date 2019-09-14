@@ -43,6 +43,10 @@ const min = hyperopt.findMinGlobal(objective, domain,
 console.info(min);
 ```
 
+## Documentation
+
+See the [typescript definition file](./index.d.ts) for API documentation
+
 ## References
 
 1. _C. Malherbe, N. Vayatis_ – __Global optimization of Lipschitz functions__ – arXiv:1703.02628, Jun 2017.

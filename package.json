@@ -7,6 +7,9 @@
     "email": "gh@rayglover.net",
     "name": "Ray Glover"
   },
+  "keywords": ["hyperparameter", "optimization", "dlib"],
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "dependencies": {
     "bindings": "^1.5",
     "cmake-js": "^5.3",
