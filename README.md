@@ -3,13 +3,18 @@
 _[Global optimization](https://en.wikipedia.org/wiki/Global_optimization) algorithms for node.js_
 
 
-This node.js package simply wraps the routine `dlib::find_max_global()` from the dlib c++ toolkit. Read more about the algorithms behind this function in [A Global Optimization Algorithm Worth Using](http://blog.dlib.net/2017/12/a-global-optimization-algorithm-worth.html).
+This node.js package wraps the routine `dlib::find_max_global()` from the dlib c++ toolkit. Read more about the algorithms behind this function in [A Global Optimization Algorithm Worth Using](http://blog.dlib.net/2017/12/a-global-optimization-algorithm-worth.html).
 
 ## Install
 
 ```bash
 npm install hyperopt
 ```
+
+Note this is a Node.js N-API native addon and requires at least:
+- CMake - `v3.11`
+- Node.js - `v8.0`
+- A recent C++ compiler
 
 ## Example
 
@@ -22,14 +27,14 @@ This simple example shows how to minimize the following function with `findMinGl
 const hyperopt = require('hyperopt');
 
 // Domain: defines the number of dimensions and their respective
-// ranges (minimum, maximum) to evaluate. In this example
+// bounds (minimum, maximum) to search. In this example
 // the objective is one dimensional.
 const domain = [
     [0, 3.5]
 ];
 
-// Objective Function: evaluates an input and returns a
-// single number i.e. the loss to minimize
+// Objective Function: evaluates a point in the domain and
+// returns a single number i.e. the loss to minimize
 const objective = xs => {
     const x = xs[0];
     return (1 / x) * Math.sin(x ** 2);
@@ -42,6 +47,10 @@ const min = hyperopt.findMinGlobal(objective, domain,
 // prints { y: -0.463, x: [ 2.144 ] }
 console.info(min);
 ```
+
+## Documentation
+
+See the [typescript definition file](./index.d.ts) for API documentation.
 
 ## References
 

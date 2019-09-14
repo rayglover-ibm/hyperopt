@@ -1,12 +1,15 @@
 {
   "name": "hyperopt",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Global optimization algorithms for node.js",
   "license": "Apache-2.0",
   "author": {
     "email": "gh@rayglover.net",
     "name": "Ray Glover"
   },
+  "keywords": ["hyperparameter", "optimization", "dlib"],
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "dependencies": {
     "bindings": "^1.5",
     "cmake-js": "^5.3",
