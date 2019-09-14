@@ -1,11 +1,18 @@
 {
   "name": "hyperopt",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Global optimization algorithms for node.js",
   "license": "Apache-2.0",
   "author": {
     "email": "gh@rayglover.net",
     "name": "Ray Glover"
+  },
+  "repository": {
+    "url": "https://github.com/rayglover-ibm/hyperopt",
+    "type": "git"
+  },
+  "engines" : {
+    "node" : ">=8.0.0"
   },
   "keywords": ["hyperparameter", "optimization", "dlib"],
   "main": "./index.js",

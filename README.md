@@ -3,7 +3,7 @@
 _[Global optimization](https://en.wikipedia.org/wiki/Global_optimization) algorithms for node.js_
 
 
-This node.js package wraps the routine `dlib::find_max_global()` from the dlib c++ toolkit. Read more about the algorithms behind this function in [A Global Optimization Algorithm Worth Using](http://blog.dlib.net/2017/12/a-global-optimization-algorithm-worth.html).
+This node.js package wraps the routine `dlib::find_max_global()` from the dlib C++ toolkit. Read more about the algorithms behind this function in [A Global Optimization Algorithm Worth Using](http://blog.dlib.net/2017/12/a-global-optimization-algorithm-worth.html).
 
 ## Install
 
