@@ -7,7 +7,8 @@
 #include <dlib/matrix.h>
 #include <dlib/global_optimization.h>
 
-Napi::Value JSThrow(Napi::Env& env, const std::string& err) {
+Napi::Value JSThrow(Napi::Env& env, const std::string& err)
+{
     Napi::Error::New(env, err).ThrowAsJavaScriptException();
     return env.Undefined();
 }
@@ -39,12 +40,12 @@ Napi::Value find_global(const Napi::CallbackInfo& info)
     }
 
     // Wrap the objective function so it can be called by dlib
-    auto xJs = Napi::Float64Array::New(env, N);
+    auto x_js = Napi::Float64Array::New(env, N);
     auto objective_wrapper = [&, N](const dlib::matrix<double, 0, 1>& x)
     {
-        for (size_t n = 0; n < N; n++) xJs[n] = x(n);
+        for (size_t n = 0; n < N; n++) { x_js[n] = x(n); }
 
-        return objective_fn.Call(env.Global(), { xJs })
+        return objective_fn.Call(env.Global(), { x_js })
             .As<Napi::Number>()
             .DoubleValue();
     };
@@ -52,10 +53,10 @@ Napi::Value find_global(const Napi::CallbackInfo& info)
     // Define the bounds
     const dlib::matrix<double, 0, 1> lower_bounds = dlib::mat(x_lower.Data(), N);
     const dlib::matrix<double, 0, 1> upper_bounds = dlib::mat(x_upper.Data(), N);
-    
+
     // Flag integer variables in the domain
     std::vector<bool> is_int(N, false);
-    for (size_t n = 0; n < N; n++) is_int[n] = x_is_int[n] == 1;
+    for (size_t n = 0; n < N; n++) { is_int[n] = x_is_int[n] == 1; }
 
     // Optimize
     dlib::function_evaluation result;
@@ -69,12 +70,12 @@ Napi::Value find_global(const Napi::CallbackInfo& info)
     }
 
     // Copy the result x vector
-    for (size_t n = 0; n < N; n++) xJs[n] = result.x(n);
+    for (size_t n = 0; n < N; n++) { x_js[n] = result.x(n); }
 
     // Output as { x: number[], y: number }
     Napi::Object resultJs = Napi::Object::New(env);
     resultJs["y"] = result.y;
-    resultJs["x"] = xJs;
+    resultJs["x"] = x_js;
 
     return resultJs;
 }

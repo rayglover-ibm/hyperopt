@@ -29,10 +29,10 @@ declare namespace hyperopt {
          * optimum to (at most) the given accuracy. A larger
          * value can result in finding a global optimum in fewer
          * iterations.
-         * 
+         *
          * @remarks See the dlib documentation of `solver_epsilon`
          * for a more detailed description of this option
-         * 
+         *
          * @defaultValue 0
          */
         epsilon: number;
@@ -52,23 +52,23 @@ declare namespace hyperopt {
          * Iteratively search for the point which optimizes
          * the value of a given function subject to the
          * constrains defined by the given domain
-         * 
+         *
          * @remarks This function wraps the dlib function
          * `dlib::find_max_global`.
-         * 
+         *
          * @param fn The objective under consideration which
          * evaluates a point within the domain
-         * 
+         *
          * @returns The point within the domain which optimizes the objective
          */
         (fn: (xs: ArrayLike<number>) => number,
 
             /** The problem space to be searched */
             domain: ArrayLike<DomainVariable>,
-    
+
             /** The optimizer configuration */
             options?: Partial<OptimizerOptions>
-    
+
         ): Result;
     }
 

@@ -1,9 +1,9 @@
 # Hyperopt &nbsp; [![Build Status](https://travis-ci.org/rayglover-ibm/hyperopt.svg?branch=master)](https://travis-ci.org/rayglover-ibm/hyperopt)
 
-_[Global optimization](https://en.wikipedia.org/wiki/Global_optimization) algorithms for node.js_
+_[Global optimization](https://en.wikipedia.org/wiki/Global_optimization) algorithms for Node.js_
 
 
-This node.js package wraps the routine `dlib::find_max_global()` from the dlib C++ toolkit. Read more about the algorithms behind this function in [A Global Optimization Algorithm Worth Using](http://blog.dlib.net/2017/12/a-global-optimization-algorithm-worth.html).
+This package wraps the routine `dlib::find_max_global()` from the dlib C++ toolkit. Read more about the algorithms behind this function in [A Global Optimization Algorithm Worth Using](http://blog.dlib.net/2017/12/a-global-optimization-algorithm-worth.html).
 
 ## Install
 
@@ -12,9 +12,9 @@ npm install hyperopt
 ```
 
 Note this is a Node.js N-API native addon and requires at least:
-- CMake - `v3.11`
-- Node.js - `v8.0`
 - A recent C++ compiler
+- Node.js - `v8.0`
+- CMake - `v3.11`
 
 ## Example
 

@@ -15,14 +15,14 @@ function extractDomain(domain) {
         let bounds = !Array.isArray(spec) && typeof spec === 'object'
             ? spec.bounds
             : spec;
-            
+
         if (spec.isInteger) {
             isInteger[i] = 1;
         }
-    
+
         if (!Array.isArray(bounds) || bounds.length < 2)
             throw new Error('Invalid range at dimension ' + i);
-    
+
         min[i] = bounds[0];
         max[i] = bounds[1];
     })

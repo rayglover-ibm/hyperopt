@@ -6,10 +6,9 @@ project (hyperopt)
 set (CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Fetch dlib
-FetchContent_Declare (
-    dlib
+FetchContent_Declare (dlib
     FETCHCONTENT_QUIET OFF
-    URL      https://github.com/davisking/dlib/archive/v19.17.tar.gz
+    URL https://github.com/davisking/dlib/archive/v19.17.tar.gz
     URL_HASH SHA256=9d2a158b2adad6acba2346f90d929558a691151aa076a0b409ee685534118692
 )
 
