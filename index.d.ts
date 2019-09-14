@@ -1,3 +1,8 @@
+/*
+ * Copyright 2017 Ray Glover
+ * Licensed under the Apache License, Version 2.0
+ */
+
 declare namespace hyperopt {
     type ObjectiveFn = (xs: ArrayLike<number>) => number;
 
