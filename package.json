@@ -19,7 +19,7 @@
   },
   "scripts": {
     "install": "cmake-js compile",
-    "test": "teenytest tests/*.test.js"
+    "test": "teenytest 'tests/*.test.js'"
   },
   "dependencies": {
     "bindings": "^1.5",
