@@ -67,8 +67,8 @@ function mlcv(kernel, sample, h) {
 
         let q = 0;
         for (let j = 0; j < n; j++) {
-                q += kernel(hNorm * (sample[j] - xi));
-            }
+            q += kernel(hNorm * (sample[j] - xi));
+        }
 
         cvSum += Math.log(q - kernel(0));
     }
@@ -106,6 +106,7 @@ const tests = {
             ([x]) => density(x), [[40, 100]], { maxIterations: 15, });
 
         console.info(`Bandwidth = ${ bandwidth },\nmax. density = ${ densityMax.x[0] }`);
+        closeTo(densityMax.x[0], 80.03, 1e-3);
     },
 
     'Maximum Likelihood cross validation (mlcv)': () => {
@@ -114,12 +115,14 @@ const tests = {
             ([h]) => cost(h), [[0.5, 50]], { maxIterations: 15, });
 
         const bandwidth = mlcvMin.x[0];
+        closeTo(bandwidth, 2.255, 1e-3);
 
         const density = kde.bind(null, gaussian, sample, bandwidth);
         const densityMax = hyperopt.findMaxGlobal(
             ([x]) => density(x), [[40, 100]], { maxIterations: 15, });
 
         console.info(`Bandwidth = ${ bandwidth },\nmax. density = ${ densityMax.x[0] }`);
+        closeTo(densityMax.x[0], 80.206, 1e-3);
     }
 }
 
