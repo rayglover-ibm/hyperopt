@@ -1,15 +1,10 @@
 const hyperopt = require('..');
 const { sample, sd } = require('./data');
-const { ok } = require('assert').strict;
+const { closeTo } = require('./util');
 
 const PI_SQRT = Math.sqrt(Math.PI);
 const INV_2PI = 1 / Math.sqrt(2 * Math.PI);
 const INV_4PI = 1 / Math.sqrt(4 * Math.PI);
-
-function closeTo(x, y, absolute) {
-    const within = Math.abs(x - y) <= absolute;
-    ok(within, `${x} should be close to ${y} (tol = ${absolute})`);
-}
 
 /** Gaussian kernel, mean = 0, variance = 1 */
 function gaussian(x) {

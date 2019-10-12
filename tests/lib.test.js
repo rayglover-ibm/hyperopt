@@ -1,10 +1,6 @@
-const hyperopt = require('..');
 const { equal, ok, throws } = require('assert').strict;
-
-function closeTo(x, y, absolute) {
-    const within = Math.abs(x - y) <= absolute;
-    ok(within, `${x} should be close to ${y} (tol = ${absolute})`);
-}
+const hyperopt = require('..');
+const { closeTo } = require('./util');
 
 function assertSolverResult(result, len) {
     equal(typeof result.y, 'number');
