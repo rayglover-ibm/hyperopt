@@ -16,6 +16,12 @@ function gaussianHat(x) {
     return INV_4PI * Math.exp(-0.25 * x * x);
 }
 
+/**
+ * @param kernel The kernel function
+ * @param h Kernel smoothing parameter (bandwidth)
+ * @returns The kernel density estimation of the given
+ * sample at the given location
+ */
 function kde(kernel, sample, h, x) {
     const n = sample.length;
     const hNorm = 1 / h;
