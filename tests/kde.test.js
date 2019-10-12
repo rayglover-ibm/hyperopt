@@ -29,12 +29,12 @@ function kde(kernel, sample, h, x) {
 }
 
 /**
- * A cost function for selection of a gaussian kernel bandwidth, by
+ * A cost function for selection of a gaussian kernel bandwidth by
  * least squares cross-validation. References: Rudemo (1982),
  * Stone (1984) and Bowman (1984)
  *
  * @returns The mean integrated squared error (MISE) of the resulting
- * density es­timate of the given sample and fixed bandwidth, h.
+ * density es­timate of the given sample and bandwidth, h.
  */
 function mise(sample, h) {
     const hNorm = 1 / h;
