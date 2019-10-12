@@ -67,12 +67,10 @@ function mlcv(kernel, sample, h) {
 
         let q = 0;
         for (let j = 0; j < n; j++) {
-            if (i !== j) {
                 q += kernel(hNorm * (sample[j] - xi));
             }
-        }
 
-        cvSum += Math.log(q);
+        cvSum += Math.log(q - kernel(0));
     }
 
     return (1 / n) * cvSum - Math.log((n - 1) * h);
