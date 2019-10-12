@@ -19,6 +19,7 @@ function gaussianHat(x) {
 /**
  * @param kernel The kernel function
  * @param h Kernel smoothing parameter (bandwidth)
+ * 
  * @returns The kernel density estimation of the given
  * sample at the given location
  */
