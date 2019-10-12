@@ -133,6 +133,7 @@ const tests = {
         throws(() => hyperopt.findMaxGlobal({},         [[0, 1]]));
         throws(() => hyperopt.findMaxGlobal(_ => [0],   [[0, 1]]));
         throws(() => hyperopt.findMaxGlobal(_ => false, [[0, 1]]));
+        throws(() => hyperopt.findMaxGlobal(_ => NaN,   [[0, 1]], { maxIterations: 10 }));
 
         // invalid domain
         throws(() => hyperopt.findMaxGlobal(_ => 0, null));

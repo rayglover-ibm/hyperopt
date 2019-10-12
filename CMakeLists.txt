@@ -29,7 +29,11 @@ endif ()
 include_directories (${CMAKE_JS_INC})
 
 add_library (${PROJECT_NAME} SHARED "src/addon.cc")
-set_target_properties (${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
+set_target_properties (${PROJECT_NAME} PROPERTIES
+    CXX_STANDARD 11
+    PREFIX ""
+    SUFFIX ".node"
+)
 
 # Find the N-API wrappers
 execute_process (

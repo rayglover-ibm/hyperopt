@@ -3,6 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  */
 
+#include <cmath>
 #include <napi.h>
 #include <dlib/matrix.h>
 #include <dlib/global_optimization.h>
@@ -41,13 +42,16 @@ Napi::Value find_global(const Napi::CallbackInfo& info)
 
     // Wrap the objective function so it can be called by dlib
     auto x_js = Napi::Float64Array::New(env, N);
-    auto objective_wrapper = [&, N](const dlib::matrix<double, 0, 1>& x)
-    {
+
+    auto objective_wrapper = [&, N](const dlib::matrix<double, 0, 1>& x) {
         for (size_t n = 0; n < N; n++) { x_js[n] = x(n); }
 
-        return objective_fn.Call(env.Global(), { x_js })
-            .As<Napi::Number>()
-            .DoubleValue();
+        const double value { objective_fn.Call(env.Global(), { x_js }).As<Napi::Number>() };
+        if (std::isnan(value)) {
+            // dlib::find_max_global will segfault on encountering nan's.
+            throw dlib::error("Objective function returned a NaN.");
+        }
+        return value;
     };
 
     // Define the bounds
