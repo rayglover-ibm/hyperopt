@@ -1,6 +1,6 @@
 {
   "name": "hyperopt",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "Global optimization algorithms for Node.js",
   "keywords": ["hyperparameter", "optimization", "dlib"],
   "license": "Apache-2.0",
