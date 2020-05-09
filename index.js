@@ -5,34 +5,42 @@
 
 const binding = require('bindings')('hyperopt');
 
-function extractBounds(bounds) {
-    const min = new Float64Array(bounds.length);
-    const max = new Float64Array(bounds.length);
+function extractDomain(domain) {
+    const N = domain.length;
+    const min = new Float64Array(N);
+    const max = new Float64Array(N);
+    const isInteger = new Uint8Array(N);
 
-    for (let i = 0; i < bounds.length; i++) {
-        const range = bounds[i];
+    domain.forEach((spec, i) => {
+        let bounds = !Array.isArray(spec) && typeof spec === 'object'
+            ? spec.bounds
+            : spec;
 
-        if (!Array.isArray(range) || range.length < 2)
+        if (spec.isInteger) {
+            isInteger[i] = 1;
+        }
+
+        if (!Array.isArray(bounds) || bounds.length < 2)
             throw new Error('Invalid range at dimension ' + i);
 
-        min[i] = range[0];
-        max[i] = range[1];
-    }
+        min[i] = bounds[0];
+        max[i] = bounds[1];
+    })
 
-    return { min, max };
+    return { min, max, isInteger };
 }
 
-function run(objective, bounds, opts, ymult) {
+function run(objective, domain, opts, ymult) {
     if (typeof objective !== 'function')
         throw new Error('The objective must be a function');
 
-    if (!Array.isArray(bounds))
-        throw new Error('The bounds must be an array');
+    if (!Array.isArray(domain))
+        throw new Error('The domain must be an array');
 
-    if (bounds.length < 1)
-        throw new Error('The bounds must have a length > 0');
+    if (domain.length < 1)
+        throw new Error('The domain must have a length > 0');
 
-    const boundsVectors = extractBounds(bounds);
+    const domainVecs = extractDomain(domain);
 
     opts = Object.assign({
         maxIterations: Number.MAX_SAFE_INTEGER,
@@ -42,14 +50,15 @@ function run(objective, bounds, opts, ymult) {
 
     return binding.find_global(
         objective,
-        boundsVectors.min,
-        boundsVectors.max,
+        domainVecs.min,
+        domainVecs.max,
+        domainVecs.isInteger,
         opts.maxIterations,
         opts.epsilon,
         opts.maxRuntimeMs,
         ymult);
 }
 
-exports.findMaxGlobal = (fn, bounds, opts) => run(fn, bounds, opts, +1);
+exports.findMaxGlobal = (fn, domain, opts) => run(fn, domain, opts, +1);
 
-exports.findMinGlobal = (fn, bounds, opts) => run(fn, bounds, opts, -1);
+exports.findMinGlobal = (fn, domain, opts) => run(fn, domain, opts, -1);

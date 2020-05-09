@@ -1,10 +1,6 @@
-const hyperopt = require('..');
 const { equal, ok, throws } = require('assert').strict;
-
-function closeTo(x, y, absolute) {
-    const within = Math.abs(x - y) <= absolute;
-    ok(within, `${x} should be close to ${y} (tol = ${absolute})`);
-}
+const hyperopt = require('..');
+const { closeTo } = require('./util');
 
 function assertSolverResult(result, len) {
     equal(typeof result.y, 'number');
@@ -35,6 +31,15 @@ const objectives = {
 
         // Rosenbrock's function
         return Math.pow(1 - x, 2) + b * Math.pow(y - (x * x), 2);
+    },
+    intProduct: (m) => {
+        let sum = 0;
+        for (let i = 0; i < m.length; i++) {
+            // values of m should be integers
+            closeTo(m[i], Math.round(m[i]), 1e-20);
+            sum += m[i];
+        }
+        return sum;
     }
 }
 
@@ -90,6 +95,21 @@ const tests = {
         closeTo(result.y, 0, 1);
     },
 
+    'Find max integer product': () => {
+        const objective = objectives.intProduct;
+        const domain = [
+            { bounds: [1, 3], isInteger: true },
+            { bounds: [0, 1], isInteger: true },
+            { bounds: [-1, 2], isInteger: true }
+        ];
+
+        const result = hyperopt.findMaxGlobal(objective, domain, { maxIterations: 10, epsilon: 1 });
+        closeTo(result.x[0], 3, 1e-20);
+        closeTo(result.x[1], 1, 1e-20);
+        closeTo(result.x[2], 2, 1e-20);
+        closeTo(result.y, 6, 1e-20);
+    },
+
     'Readme example 1': () => {
         const domain = [
             [0, 3.5]
@@ -113,11 +133,14 @@ const tests = {
         throws(() => hyperopt.findMaxGlobal({},         [[0, 1]]));
         throws(() => hyperopt.findMaxGlobal(_ => [0],   [[0, 1]]));
         throws(() => hyperopt.findMaxGlobal(_ => false, [[0, 1]]));
+        throws(() => hyperopt.findMaxGlobal(_ => NaN,   [[0, 1]], { maxIterations: 10 }));
 
         // invalid domain
         throws(() => hyperopt.findMaxGlobal(_ => 0, null));
         throws(() => hyperopt.findMaxGlobal(_ => 0, []));
         throws(() => hyperopt.findMaxGlobal(_ => 0, [0]));
+        throws(() => hyperopt.findMaxGlobal(_ => 0, [{ bounds: 0 }]));
+        throws(() => hyperopt.findMaxGlobal(_ => 0, [{ bounds: [0.1, 2], isInteger: true }]));
     }
 }
 
