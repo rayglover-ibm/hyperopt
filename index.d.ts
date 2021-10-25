@@ -3,12 +3,15 @@
  * Licensed under the Apache License, Version 2.0
  */
 
-declare namespace hyperopt {
-    type ObjectiveFn = (xs: ArrayLike<number>) => number;
+declare namespace hyperopt
+{
+    type Vec<T> = ArrayLike<T> & Iterable<T>;
+
+    type ObjectiveFn = (xs: Vec<number>) => number;
 
     type Result = {
         /** The optimal point within a domain */
-        x: ArrayLike<number>;
+        x: Vec<number>;
 
         /** The value of f(x) */
         y: number
@@ -58,17 +61,16 @@ declare namespace hyperopt {
          *
          * @param fn The objective under consideration which
          * evaluates a point within the domain
+         * @param domain The problem space to be searched
+         * @param options The optimizer configuration
          *
-         * @returns The point within the domain which optimizes the objective
+         * @returns The point within the domain which optimizes
+         * the objective
          */
-        (fn: (xs: ArrayLike<number>) => number,
-
-            /** The problem space to be searched */
+        (
+            fn: (xs: Vec<number>) => number,
             domain: ArrayLike<DomainVariable>,
-
-            /** The optimizer configuration */
             options?: Partial<OptimizerOptions>
-
         ): Result;
     }
 

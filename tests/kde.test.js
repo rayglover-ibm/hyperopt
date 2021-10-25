@@ -1,3 +1,4 @@
+// @ts-check
 const hyperopt = require('..');
 const { sample, sd } = require('./data');
 const { closeTo } = require('./util');
@@ -94,8 +95,8 @@ const tests = {
         // Find the location of the highest density in the data,
         // with a gaussian kernel
         const density = kde.bind(null, gaussian, sample, h);
-        const densityMax = hyperopt.findMaxGlobal(([x]) => density(x),
-            [[40, 100]], { maxIterations: 15 });
+        const densityMax = hyperopt.findMaxGlobal(
+            ([x]) => density(x), [[40, 100]], { maxIterations: 15 });
 
         console.info(`Bandwidth = ${ h },\nmax. density = ${ densityMax.x[0] }`);
     },

@@ -3,6 +3,7 @@
  * Licensed under the Apache License, Version 2.0
  */
 
+// @ts-check
 const binding = require('bindings')('hyperopt');
 
 function extractDomain(domain) {

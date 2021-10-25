@@ -1,6 +1,9 @@
+// @ts-check
 const { equal, ok, throws } = require('assert').strict;
 const hyperopt = require('..');
 const { closeTo } = require('./util');
+
+/** @typedef {import('..').DomainVariable} DomainVariable */
 
 function assertSolverResult(result, len) {
     equal(typeof result.y, 'number');
@@ -73,6 +76,7 @@ const tests = {
 
         // Avoid bounds centred at (0, 0) to
         // make this more challenging
+        /** @type {DomainVariable[]} */
         const bounds = [[-3.1, 6.51], [-5.2, 3.3]];
         const result = hyperopt.findMinGlobal(objective, bounds, { maxIterations: 250 });
 
@@ -87,16 +91,20 @@ const tests = {
         const objective = objectives.rosen.bind(null, 100);
         const maxRuntimeMs = 500;
 
-        const t1 = Date.now();
+        /** @type {DomainVariable[]} */
         const bounds = [[-3.1, 6.51], [-5.2, 3.3]];
+
+        const t1 = Date.now();
         const result = hyperopt.findMinGlobal(objective, bounds, { maxRuntimeMs });
 
         closeTo(Date.now() - t1, maxRuntimeMs, maxRuntimeMs * 0.25);
         closeTo(result.y, 0, 1);
     },
 
-    'Find max integer product': () => {
+    'Find max integer product': () => {        
         const objective = objectives.intProduct;
+
+        /** @type {DomainVariable[]} */
         const domain = [
             { bounds: [1, 3], isInteger: true },
             { bounds: [0, 1], isInteger: true },
@@ -111,6 +119,7 @@ const tests = {
     },
 
     'Readme example 1': () => {
+        /** @type {DomainVariable[]} */
         const domain = [
             [0, 3.5]
         ];
@@ -127,19 +136,27 @@ const tests = {
         closeTo(min.x[0], 2.144, 1e-3);
     },
 
-    'Handles Bad inputs': () => {
-        // invalid objectives
+    'Handles Bad objectives': () => {
         throws(() => hyperopt.findMaxGlobal(null,       [[0, 1]]));
+        // @ts-expect-error
         throws(() => hyperopt.findMaxGlobal({},         [[0, 1]]));
+        // @ts-expect-error
         throws(() => hyperopt.findMaxGlobal(_ => [0],   [[0, 1]]));
+        // @ts-expect-error
         throws(() => hyperopt.findMaxGlobal(_ => false, [[0, 1]]));
+        
         throws(() => hyperopt.findMaxGlobal(_ => NaN,   [[0, 1]], { maxIterations: 10 }));
+    },
 
-        // invalid domain
+    'Handles Bad domains': () => {
         throws(() => hyperopt.findMaxGlobal(_ => 0, null));
+        
         throws(() => hyperopt.findMaxGlobal(_ => 0, []));
+        // @ts-expect-error
         throws(() => hyperopt.findMaxGlobal(_ => 0, [0]));
+        // @ts-expect-error
         throws(() => hyperopt.findMaxGlobal(_ => 0, [{ bounds: 0 }]));
+        
         throws(() => hyperopt.findMaxGlobal(_ => 0, [{ bounds: [0.1, 2], isInteger: true }]));
     }
 }

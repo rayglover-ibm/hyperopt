@@ -1,3 +1,4 @@
+// @ts-check
 const hyperopt = require('..');
 const { sample, mean, sd } = require('./data');
 const { closeTo } = require('./util');
@@ -38,6 +39,7 @@ const tests = {
     },
 
     'Maximum likelihood estimation': () => {
+        /** @type {(xs: Iterable<number>) => number} */
         const logLik = ([loc, scale]) => negLogL(sample, loc, scale);
 
         const max = hyperopt.findMaxGlobal(
