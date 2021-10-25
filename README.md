@@ -64,7 +64,7 @@ See the [typescript definition file](./index.d.ts) for API documentation.
 
 ## License
 
-Copyright 2019 Ray Glover
+Copyright 2021 Ray Glover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
