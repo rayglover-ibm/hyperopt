@@ -28,9 +28,12 @@ endif ()
 # Essential include files to build a node addon with cmake.js
 include_directories (${CMAKE_JS_INC})
 
-add_library (${PROJECT_NAME} SHARED "src/addon.cc")
+add_library (${PROJECT_NAME} SHARED
+    "src/addon.cc"
+)
+
 set_target_properties (${PROJECT_NAME} PROPERTIES
-    CXX_STANDARD 11
+    CXX_STANDARD 17
     PREFIX ""
     SUFFIX ".node"
 )
@@ -47,6 +50,10 @@ target_include_directories (${PROJECT_NAME}
     PRIVATE "${NODE_ADDON_API_DIR}"
 )
 
-# Essential library files to link to a node addon,
-# you should add this line in every CMake.js based project.
+# N-API v6 (node v12.17)
+target_compile_definitions (${PROJECT_NAME}
+    PUBLIC NAPI_VERSION=6
+)
+
+# Essential library files to link to a node addon
 target_link_libraries (${PROJECT_NAME} ${CMAKE_JS_LIB} dlib::dlib)

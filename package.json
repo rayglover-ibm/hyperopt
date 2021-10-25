@@ -2,7 +2,11 @@
   "name": "hyperopt",
   "version": "0.7.3",
   "description": "Global optimization algorithms for Node.js",
-  "keywords": ["hyperparameter", "optimization", "dlib"],
+  "keywords": [
+    "hyperparameter",
+    "optimization",
+    "dlib"
+  ],
   "license": "Apache-2.0",
   "main": "./index.js",
   "types": "./index.d.ts",
@@ -14,8 +18,8 @@
     "url": "https://github.com/rayglover-ibm/hyperopt",
     "type": "git"
   },
-  "engines" : {
-    "node" : ">=8.0.0"
+  "engines": {
+    "node": ">=12.17.0"
   },
   "scripts": {
     "install": "cmake-js compile",
@@ -23,10 +27,12 @@
   },
   "dependencies": {
     "bindings": "^1.5",
-    "cmake-js": "^5.3",
-    "node-addon-api": "^1.7"
+    "cmake-js": "^6.2",
+    "node-addon-api": "^4.2",
+    "prebuild-install": "^6.1"
   },
   "devDependencies": {
+    "prebuild": "^3.0.3",
     "teenytest": "^5.2"
   }
 }
