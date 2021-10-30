@@ -29,6 +29,6 @@ jobs:
           npm init --yes
           npm add hyperopt
           
-          y = `node -p "const { findMinGlobal } = require('hyperopt'); findMinGlobal(_ => 0, [[0, 1]], { maxRuntimeMs: 100}).y;"`
-          exit [ $y -eq 0 ]
+          y=`node -p "const { findMinGlobal } = require('hyperopt'); findMinGlobal(_ => 0, [[0, 1]], { maxRuntimeMs: 100}).y;"`
+          test $y -eq 0
 
