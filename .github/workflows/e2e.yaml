@@ -1,0 +1,34 @@
+name: e2e
+
+on:
+  workflow_dispatch:
+  schedule:
+    # twice a month
+    - cron:  '0 0 */15 * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.17.x, lts/*]
+
+    name: Node ${{ matrix.node-version }} on ${{ matrix.os }}
+    steps:
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          check-latest: true
+            
+      - name: Install and Test
+        run: |
+          node --version
+          mkdir test && cd test
+
+          npm init --yes
+          npm add hyperopt
+          
+          y = `node -p "const { findMinGlobal } = require('hyperopt'); findMinGlobal(_ => 0, [[0, 1]], { maxRuntimeMs: 100}).y;"`
+          exit [ $y -eq 0 ]
+
