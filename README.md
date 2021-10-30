@@ -1,4 +1,4 @@
-# Hyperopt &nbsp; [![Build Status](https://travis-ci.org/rayglover-ibm/hyperopt.svg?branch=master)](https://travis-ci.org/rayglover-ibm/hyperopt)
+# Hyperopt
 
 _[Global optimization](https://en.wikipedia.org/wiki/Global_optimization) algorithms for Node.js_
 
