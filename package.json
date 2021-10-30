@@ -1,6 +1,6 @@
 {
   "name": "hyperopt",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Global optimization algorithms for Node.js",
   "keywords": [
     "hyperparameter",
@@ -22,8 +22,9 @@
     "node": ">=12.17.0"
   },
   "scripts": {
-    "install": "cmake-js compile",
-    "test": "teenytest 'tests/*.test.js'"
+    "install": "prebuild-install -r napi || cmake-js compile --prefer-clang",
+    "test": "teenytest 'tests/*.test.js'",
+    "prebuild": "prebuild -r napi --all --verbose --backend cmake-js"
   },
   "dependencies": {
     "bindings": "^1.5",

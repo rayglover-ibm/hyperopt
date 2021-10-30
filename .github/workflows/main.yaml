@@ -13,11 +13,14 @@ jobs:
       matrix:
         include:
           - os: windows-latest
-            node-version: 16.x
+            node-version: 12.17.x
+            prebuild: true
           - os: macos-latest
-            node-version: 16.x
+            node-version: 12.17.x
+            prebuild: true
           - os: ubuntu-latest
-            node-version: 16.x
+            node-version: 12.17.x
+            prebuild: true
 
     name: Node ${{ matrix.node-version }} on ${{ matrix.os }}
     steps:
@@ -45,3 +48,10 @@ jobs:
           npm test
         env:
           npm_config_build_from_source: true
+
+      # Create a release on git refs that begin with 'v'
+      - name: Release Prebuilt Binaries
+        if: matrix.prebuild && startsWith(github.ref, 'refs/tags/v')
+        run: npm run prebuild -- -u "$GH_TOKEN"
+        env:
+          GH_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}

@@ -13,7 +13,7 @@ npm install hyperopt
 
 Note this is a Node.js N-API native addon and requires at least:
 - A recent C++ compiler
-- Node.js - `v8.0`
+- Node.js - `v12.17`
 - CMake - `v3.11`
 
 ## Example
