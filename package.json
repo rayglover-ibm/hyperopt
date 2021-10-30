@@ -1,6 +1,6 @@
 {
   "name": "hyperopt",
-  "version": "0.7.6",
+  "version": "0.7.7",
   "description": "Global optimization algorithms for Node.js",
   "keywords": [
     "hyperparameter",
@@ -33,7 +33,7 @@
     "prebuild-install": "^6.1"
   },
   "devDependencies": {
-    "prebuild": "^3.0.3",
+    "prebuild": "^11.0.0",
     "teenytest": "^5.2"
   },
   "binary": {
