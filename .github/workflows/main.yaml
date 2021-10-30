@@ -52,6 +52,6 @@ jobs:
       # Create a release on git refs that begin with 'v'
       - name: Release Prebuilt Binaries
         if: matrix.prebuild && startsWith(github.ref, 'refs/tags/v')
-        run: npm run prebuild -- -u "$GH_TOKEN"
+        run: npm run prebuild -- -u "${{ env.GH_TOKEN }}"
         env:
           GH_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}
